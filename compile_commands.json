@@ -1,0 +1,16 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-c",
+      "-std=c++11",
+      "-Wall",
+      "-o",
+      "tcp_chat",
+      "main.cpp"
+    ],
+    "directory": "/home/aali/tcp_chat",
+    "file": "/home/aali/tcp_chat/main.cpp",
+    "output": "/home/aali/tcp_chat/tcp_chat"
+  }
+]
