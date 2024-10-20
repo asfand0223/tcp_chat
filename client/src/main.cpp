@@ -3,6 +3,7 @@
 #include <cstring>
 #include <iostream>
 #include <netinet/in.h>
+#include <string>
 #include <unistd.h>
 
 int main() {
@@ -24,20 +25,39 @@ int main() {
     close(clientSocket);
     return -2;
   }
-  // Create data to send
-  const char *message = "Hello, server!";
-  // Send data
-  send(clientSocket, message, strlen(message), 0);
-  // Receive data from server
-  char buffer[4096];
-  memset(buffer, 0, sizeof(buffer));
-  int bytesReceived = recv(clientSocket, buffer, sizeof(buffer) - 1, 0);
-  if (bytesReceived < 0) {
-    std::cerr << "Error receiving response" << std::endl;
-    return -3;
-  } else {
-    std::cout << "Server response: " << buffer << std::endl;
+
+  while (true) {
+    // Create data to send
+    std::string message;
+    std::cout << "Enter message to send (type 'exit' to quit): ";
+    std::getline(std::cin, message);
+
+    // Check for exit condition
+    if (message == "exit") {
+      std::cout << "Exiting client." << std::endl;
+      break;
+    }
+
+    // Send data
+    send(clientSocket, message.c_str(), message.length(), 0);
+
+    // Receive data from server
+    char buffer[4096];
+    memset(buffer, 0, sizeof(buffer));
+    int bytesReceived = recv(clientSocket, buffer, sizeof(buffer) - 1, 0);
+    if (bytesReceived < 0) {
+      std::cerr << "Error receiving response" << std::endl;
+      break;
+    } else if (bytesReceived == 0) {
+      std::cout << "Server disconnected" << std::endl;
+      break;
+    } else {
+      std::cout << "Server response: " << std::string(buffer, bytesReceived)
+                << std::endl;
+    }
   }
+
+  // Close the socket
   close(clientSocket);
-  return 1;
+  return 0;
 }
