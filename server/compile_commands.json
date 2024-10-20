@@ -1,0 +1,18 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-c",
+      "-Iinclude",
+      "-Wall",
+      "-Wextra",
+      "-std=c++11",
+      "-o",
+      "build/server",
+      "src/main.cpp"
+    ],
+    "directory": "/home/aali/tcp_chat/server",
+    "file": "/home/aali/tcp_chat/server/src/main.cpp",
+    "output": "/home/aali/tcp_chat/server/build/server"
+  }
+]
